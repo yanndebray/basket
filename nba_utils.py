@@ -31,4 +31,4 @@ if __name__ == "__main__":
     y = 2024 
     games = consolidate_games(y)
     games.to_csv(f'games-{y}-{str(y+1)[2:]}.csv')
-    print(f"Consolidated seasons {y} to {str(y+1)[2:]}")
+    print(f"Consolidated season {y}-{str(y+1)[2:]}")
