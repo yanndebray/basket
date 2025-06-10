@@ -13,9 +13,9 @@ def consolidate_games(start,end):
     # for instance start, end = 2015, 2024
     # # single season
     # games = fetch_games('2023-24')
-    # # combine seasons
-    # seasons = [f"{y}-{str(y+1)[2:]}" for y in range(start, end)]
-    # games = pd.concat([fetch_games(s) for s in seasons], ignore_index=True)
+    # combine seasons
+    seasons = [f"{y}-{str(y+1)[2:]}" for y in range(start, end)]
+    games = pd.concat([fetch_games(s) for s in seasons], ignore_index=True)
     # parse date and home/away
     games['GAME_DATE'] = pd.to_datetime(games['GAME_DATE'])
     # Drop duplicate games — keep only home team per GAME_ID
