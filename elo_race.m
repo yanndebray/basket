@@ -5,7 +5,7 @@
 % -------------------------------------------------------------
 
 %% 1. Load the game log ---------------------------------------
-games = readtable("games-2023-24.csv", TextType="string");
+games = readtable("games-2024-25.csv", TextType="string");
 
 % make sure the date column is datetime, then chronological order
 if ~isdatetime(games.GAME_DATE)
@@ -144,4 +144,4 @@ for s = 2:numel(snapshots)
 end
 
 close(vid);
-fprintf("🎬  Finished!  Video saved as nba_elo_race_animation\n");
+fprintf("🎬  Finished!  Video saved as nba_elo_race\n");

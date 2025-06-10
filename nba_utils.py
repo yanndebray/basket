@@ -9,10 +9,10 @@ def fetch_games(season: str):
     return df[['GAME_ID','GAME_DATE','TEAM_ID','TEAM_NAME',
                'MATCHUP','WL','PTS','PLUS_MINUS']]
 
-def consolidate_games(start,end):
-    # for instance start, end = 2015, 2024
+def consolidate_games(y):
+    # for instance y = 2024 >> season '2024-25'
     # single season
-    games = fetch_games('2023-24')
+    games = fetch_games(f"{y}-{str(y+1)[2:]}")
     # # combine seasons
     # seasons = [f"{y}-{str(y+1)[2:]}" for y in range(start, end)]
     # games = pd.concat([fetch_games(s) for s in seasons], ignore_index=True)
@@ -28,7 +28,7 @@ def consolidate_games(start,end):
     return games
 
 if __name__ == "__main__":
-    start, end = 2023, 2024
-    games = consolidate_games(start,end)
-    games.to_csv(f'games-{start}-{end}.csv')
-    print(f"Consolidated seasons {start} to {end}")
+    y = 2024 
+    games = consolidate_games(y)
+    games.to_csv(f'games-{y}-{str(y+1)[2:]}.csv')
+    print(f"Consolidated seasons {y} to {str(y+1)[2:]}")

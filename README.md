@@ -3,6 +3,10 @@
 
 Use MATLAB with Python to play with NBA data
 
+[ELO](https://en.wikipedia.org/wiki/Elo_rating_system) race:
+
+https://raw.githubusercontent.com/yanndebray/basket/refs/heads/main/nba_elo_race.mp4
+
 <a name="beginToc"></a>
 
 ## Table of Contents
