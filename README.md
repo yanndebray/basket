@@ -14,6 +14,10 @@ https://github.com/user-attachments/assets/a6ad44f3-d82a-4777-b401-bb4ef405e393
  
 &emsp;&emsp;[Games](#games)
  
+&emsp;&emsp;[Ranking](#ranking)
+ 
+&emsp;&emsp;[Utils](#utils)
+ 
 <a name="endToc"></a>
 
 **Resources**
@@ -109,11 +113,15 @@ table(game_log{1})
 
 ## Games
 ```matlab
+season = "2024-25";
+```
+
+```matlab
 % Python code input
 pycode = [...
-"from nba_api.stats.endpoints import leaguegamefinder",...
-"league_game_finder = leaguegamefinder.LeagueGameFinder(league_id_nullable='00', season_nullable='2024-25')",...
-"games = league_game_finder.get_data_frames()[0]"...
+"from nba_api.stats.endpoints import LeagueGameLog",...
+"gl = LeagueGameLog(season=season)",...
+"games = gl.get_data_frames()[0]"...
 ];
 
 try
@@ -148,20 +156,20 @@ games2 =
       style: [1x1 py.pandas.io.formats.style.Styler]
      values: [1x1 py.numpy.ndarray]
 
-         SEASON_ID     TEAM_ID TEAM_ABBREVIATION  ... TOV  PF PLUS_MINUS
-    0        42024  1610612760               OKC  ...  13  20       16.0
-    1        42024  1610612754               IND  ...  15  25      -16.0
-    2        42024  1610612760               OKC  ...   6  19       -1.0
-    3        42024  1610612754               IND  ...  24  22        1.0
-    4        42024  1610612754               IND  ...  12  23       17.0
-    ...        ...         ...               ...  ...  ..  ..        ...
-    2787     12024  1610612747               LAL  ...  20  20      -17.0
-    2788     12024  1610612743               DEN  ...  23  24       -4.0
-    2789     12024  1610612738               BOS  ...  17  24        4.0
-    2790     12024  1610612750               MIN  ...  14  19       17.0
-    2791     12024  1610612762               UTA  ...  21  19       29.0
+         SEASON_ID     TEAM_ID TEAM_ABBREVIATION  ...  PTS PLUS_MINUS VIDEO_AVAILABLE
+    0        22024  1610612752               NYK  ...  109        -23               1
+    1        22024  1610612747               LAL  ...  110          7               1
+    2        22024  1610612738               BOS  ...  132         23               1
+    3        22024  1610612750               MIN  ...  103         -7               1
+    4        22024  1610612765               DET  ...  109         -6               1
+    ...        ...         ...               ...  ...  ...        ...             ...
+    2455     22024  1610612741               CHI  ...  122         20               1
+    2456     22024  1610612737               ATL  ...  117         12               1
+    2457     22024  1610612755               PHI  ...  102        -20               1
+    2458     22024  1610612753               ORL  ...  105        -12               1
+    2459     22024  1610612748               MIA  ...  118         -1               1
     
-    [2792 rows x 28 columns]
+    [2460 rows x 29 columns]
 
 ```
 
@@ -171,20 +179,103 @@ games2 =
 clear pycode;
 table(games2)
 ```
-| |SEASON_ID|TEAM_ID|TEAM_ABBREVIATION|TEAM_NAME|GAME_ID|GAME_DATE|MATCHUP|WL|MIN|PTS|FGM|FGA|FG_PCT|FG3M|FG3A|FG3_PCT|FTM|FTA|FT_PCT|OREB|DREB|REB|AST|STL|BLK|TOV|PF|PLUS_MINUS|
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|1|"42024"|1610612760|"OKC"|"Oklahoma City Thunder"|"0042400402"|"2025-06-08"|"OKC vs. IND"|"W"|240|123|40|82|0.4880|14|36|0.3890|29|33|0.8790|11|32|43|25|10|4|13|20|16|
-|2|"42024"|1610612754|"IND"|"Indiana Pacers"|"0042400402"|"2025-06-08"|"IND @ OKC"|"L"|241|107|37|82|0.4510|14|40|0.3500|19|26|0.7310|7|28|35|27|9|6|15|25|-16|
-|3|"42024"|1610612760|"OKC"|"Oklahoma City Thunder"|"0042400401"|"2025-06-05"|"OKC vs. IND"|"L"|239|110|39|98|0.3980|11|30|0.3670|21|24|0.8750|10|29|39|13|14|6|6|19|-1|
-|4|"42024"|1610612754|"IND"|"Indiana Pacers"|"0042400401"|"2025-06-05"|"IND @ OKC"|"W"|240|111|39|82|0.4760|18|39|0.4620|15|21|0.7140|13|43|56|24|1|7|24|22|1|
-|5|"42024"|1610612754|"IND"|"Indiana Pacers"|"0042400306"|"2025-05-31"|"IND vs. NYK"|"W"|241|125|46|85|0.5410|17|33|0.5150|16|19|0.8420|6|30|36|30|10|9|12|23|17|
-|6|"42024"|1610612752|"NYK"|"New York Knicks"|"0042400306"|"2025-05-31"|"NYK @ IND"|"L"|240|108|41|86|0.4770|9|32|0.2810|17|26|0.6540|13|28|41|23|10|6|17|16|-17|
-|7|"42024"|1610612752|"NYK"|"New York Knicks"|"0042400305"|"2025-05-29"|"NYK vs. IND"|"W"|241|111|44|89|0.4940|8|29|0.2760|15|22|0.6820|11|34|45|22|11|3|15|22|17|
-|8|"42024"|1610612754|"IND"|"Indiana Pacers"|"0042400305"|"2025-05-29"|"IND @ NYK"|"L"|240|94|30|74|0.4050|10|30|0.3330|24|29|0.8280|8|32|40|20|10|7|20|22|-17|
-|9|"42024"|1610612750|"MIN"|"Minnesota Timberwolves"|"0042400315"|"2025-05-28"|"MIN @ OKC"|"L"|241|94|35|85|0.4120|12|34|0.3530|12|15|0.8000|8|31|39|16|7|6|21|20|-30|
-|10|"42024"|1610612760|"OKC"|"Oklahoma City Thunder"|"0042400315"|"2025-05-28"|"OKC vs. MIN"|"W"|238|124|46|88|0.5230|14|35|0.4000|18|21|0.8570|7|39|46|26|14|8|14|20|30|
-|11|"42024"|1610612754|"IND"|"Indiana Pacers"|"0042400304"|"2025-05-27"|"IND vs. NYK"|"W"|240|130|45|88|0.5110|13|32|0.4060|27|32|0.8440|5|28|33|29|11|4|11|27|9|
-|12|"42024"|1610612752|"NYK"|"New York Knicks"|"0042400304"|"2025-05-27"|"NYK @ IND"|"L"|240|121|38|82|0.4630|12|28|0.4290|33|39|0.8460|13|31|44|17|7|4|17|27|-9|
-|13|"42024"|1610612760|"OKC"|"Oklahoma City Thunder"|"0042400314"|"2025-05-26"|"OKC @ MIN"|"W"|239|128|48|95|0.5050|16|37|0.4320|16|21|0.7620|19|17|36|22|14|5|14|22|2|
-|14|"42024"|1610612750|"MIN"|"Minnesota Timberwolves"|"0042400314"|"2025-05-26"|"MIN vs. OKC"|"L"|239|126|43|84|0.5120|18|41|0.4390|22|28|0.7860|19|22|41|30|8|3|21|20|-2|
+| |SEASON_ID|TEAM_ID|TEAM_ABBREVIATION|TEAM_NAME|GAME_ID|GAME_DATE|MATCHUP|WL|MIN|FGM|FGA|FG_PCT|FG3M|FG3A|FG3_PCT|FTM|FTA|FT_PCT|OREB|DREB|REB|AST|STL|BLK|TOV|PF|PTS|PLUS_MINUS|VIDEO_AVAILABLE|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|1|"22024"|1610612752|"NYK"|"New York Knicks"|"0022400061"|"2024-10-22"|"NYK @ BOS"|"L"|240|43|78|0.5510|11|30|0.3670|12|16|0.7500|5|29|34|20|2|3|12|12|109|-23|1|
+|2|"22024"|1610612747|"LAL"|"Los Angeles Lakers"|"0022400062"|"2024-10-22"|"LAL vs. MIN"|"W"|240|42|95|0.4420|5|30|0.1670|21|25|0.8400|15|31|46|22|7|8|7|22|110|7|1|
+|3|"22024"|1610612738|"BOS"|"Boston Celtics"|"0022400061"|"2024-10-22"|"BOS vs. NYK"|"W"|240|48|95|0.5050|29|61|0.4750|7|8|0.8750|11|29|40|33|6|3|4|15|132|23|1|
+|4|"22024"|1610612750|"MIN"|"Minnesota Timberwolves"|"0022400062"|"2024-10-22"|"MIN @ LAL"|"L"|240|35|85|0.4120|13|41|0.3170|20|27|0.7410|12|35|47|17|4|1|16|22|103|-7|1|
+|5|"22024"|1610612765|"DET"|"Detroit Pistons"|"0022400063"|"2024-10-23"|"DET vs. IND"|"L"|240|38|88|0.4320|9|33|0.2730|24|28|0.8570|12|26|38|22|6|2|14|21|109|-6|1|
+|6|"22024"|1610612755|"PHI"|"Philadelphia 76ers"|"0022400066"|"2024-10-23"|"PHI vs. MIL"|"L"|240|41|98|0.4180|8|31|0.2580|19|27|0.7040|17|32|49|18|4|2|10|28|109|-15|1|
+|7|"22024"|1610612749|"MIL"|"Milwaukee Bucks"|"0022400066"|"2024-10-23"|"MIL @ PHI"|"W"|240|43|80|0.5380|16|37|0.4320|22|31|0.7100|8|38|46|27|4|9|14|23|124|15|1|
+|8|"22024"|1610612744|"GSW"|"Golden State Warriors"|"0022400072"|"2024-10-23"|"GSW @ POR"|"W"|240|48|93|0.5160|20|48|0.4170|24|30|0.8000|15|42|57|38|13|5|18|27|140|36|1|
+|9|"22024"|1610612763|"MEM"|"Memphis Grizzlies"|"0022400070"|"2024-10-23"|"MEM @ UTA"|"W"|240|43|91|0.4730|17|45|0.3780|23|32|0.7190|13|28|41|28|7|5|13|35|126|2|1|
+|10|"22024"|1610612756|"PHX"|"Phoenix Suns"|"0022400071"|"2024-10-23"|"PHX @ LAC"|"W"|265|38|78|0.4870|15|38|0.3950|25|34|0.7350|4|38|42|25|12|9|22|23|116|3|1|
+|11|"22024"|1610612746|"LAC"|"LA Clippers"|"0022400071"|"2024-10-23"|"LAC vs. PHX"|"L"|265|42|92|0.4570|8|29|0.2760|21|30|0.7000|13|38|51|27|9|1|22|29|113|-3|1|
+|12|"22024"|1610612762|"UTA"|"Utah Jazz"|"0022400070"|"2024-10-23"|"UTA vs. MEM"|"L"|240|40|85|0.4710|10|26|0.3850|34|45|0.7560|14|35|49|21|7|9|17|24|124|-2|1|
+|13|"22024"|1610612740|"NOP"|"New Orleans Pelicans"|"0022400069"|"2024-10-23"|"NOP vs. CHI"|"W"|240|45|97|0.4640|14|37|0.3780|19|21|0.9050|7|35|42|29|15|10|12|17|123|12|1|
+|14|"22024"|1610612737|"ATL"|"Atlanta Hawks"|"0022400064"|"2024-10-23"|"ATL vs. BKN"|"W"|240|39|80|0.4880|9|28|0.3210|33|46|0.7170|12|33|45|25|12|9|16|20|120|4|1|
 
+## Ranking
+
+**Elo rating** is a method for calculating the  *relative skill levels* of players and teams in competitor\-vs\-competitor games like chess, and it has been adapted for many sports, including **basketball.**
+
+```matlab
+nba_elo_BOS_NYK
+```
+
+![figure_1.png](README_media/figure_1.png)
+
+```matlab
+% NYK vs. BOS
+game = readtable("BOS_vs_NYK_pre.csv", TextType="string");
+
+% Extract the two Elo ratings (row is NYK vs BOS)
+elo = struct();
+elo.NYK = int64(game.elo_pre(1));        % NYK’s rating before the tip-off
+elo.BOS = int64(game.elo_opp_pre(1));    % BOS’s rating before the tip-off
+
+disp(elo)
+```
+
+```matlabTextOutput
+    NYK: 1595
+    BOS: 1678
+```
+
+Probability and odds
+
+```matlab
+p = calculate_win_probability(elo.BOS, elo.NYK)
+```
+
+```matlabTextOutput
+p = 0.6172
+```
+
+```matlab
+odds = probability_to_odds(p)
+```
+
+```matlabTextOutput
+odds = 1.6202
+```
+
+Update the ELO rating after the game
+
+```matlab
+tname = "NYK";
+oname = "BOS";
+
+% pre-game ratings
+r_team = elo.(tname);
+r_opp  = elo.(oname);
+
+% win indicator
+win = 0;
+exp_t  = 1/(1 + 10^((r_opp - r_team)/400));
+K = 20;
+
+% updates
+elo.(tname) = elo.(tname) + K*( win        - exp_t);
+elo.(oname) = elo.(oname) + K*((1-win) - (1-exp_t));
+disp(elo)
+```
+
+```matlabTextOutput
+    NYK: 1575
+    BOS: 1698
+```
+
+## Utils
+```matlab
+function p = calculate_win_probability(elo_a, elo_b)
+    % Compute win probability for team A given two Elo ratings
+    p = 1 / (1 + 10^((elo_b - elo_a) / 400));
+end
+
+function odds = probability_to_odds(probability)
+    % Convert probability to decimal odds
+    odds = 1 / probability;
+end
+```
